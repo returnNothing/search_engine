@@ -1,8 +1,7 @@
 """
 Stemmer contains a set of functions producing presustems for morphological analysis.
 """
-
-# Добавить док-стринг. 
+ 
 # The class Stemmer contains two arguments for functions:
 # length is the number of symbols a token should contain
 # in order to get its pseudoflexions. It's also responsible
