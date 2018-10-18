@@ -99,31 +99,27 @@ class Tokenizer(object):
         if not isinstance(string, str):
             raise TypeError('This is not a string.')
 
-        ####################################################
-        if string is '':
-            yield ''
-        else:
-            # The variable 'first_char_num' is for 'first_char_num' attribute calculation.
-            # The variable 'current_token_type' keeps the type of a token being created.
-            first_char_num = 0
-            current_token_type = Tokenizer().type_identifier(string[0])
+        # The variable 'first_char_num' is for 'first_char_num' attribute calculation.
+        # The variable 'current_token_type' keeps the type of a token being created.
+        first_char_num = 0
+        current_token_type = Tokenizer().type_identifier(string[0])
 
-            # The for-loop here is responsible for 'content' attribute filling
-            # and calculating the index of the first letter of the token.
-            for i, c in enumerate(string):
-                if Tokenizer().type_identifier(c) == current_token_type:
-                    pass
+        # The for-loop here is responsible for 'content' attribute filling
+        # and calculating the index of the first letter of the token.
+        for i, c in enumerate(string):
+            if Tokenizer().type_identifier(c) == current_token_type:
+                pass
 
-                # 'Else' here is responsible for creation of an all_Token-instance
-                # and their yielding. 
-                else:
-                    yield (all_Token(string[first_char_num:i], first_char_num, current_token_type))
-                    current_token_type = Tokenizer().type_identifier(string[i])
-                    first_char_num = i
+            # 'Else' here is responsible for creation of an all_Token-instance
+            # and their yielding. 
+            else:
+                yield (all_Token(string[first_char_num:i], first_char_num, current_token_type))
+                current_token_type = Tokenizer().type_identifier(string[i])
+                first_char_num = i
 
-            # This block is for the last char. 
-            if string[-1]:
-                yield (all_Token(string[first_char_num:i + 1], first_char_num, current_token_type))
+        # This block is for the last char. 
+        if string[-1]:
+            yield (all_Token(string[first_char_num:i + 1], first_char_num, current_token_type))
 
     # This method indentifies the type of a token by a type of chars it consist of.
     def type_identifier(self, char):
@@ -141,10 +137,6 @@ class Tokenizer(object):
     # This method returns only alphabetical and digital tokens for the indexer. 
     def se_tokenize(self, string):
         tokens = Tokenizer().all_tokenize(string)
-        #############################################################
         for t in tokens:
-            if t != '':
-                if t.token_type == 'alpha' or t.token_type == 'digit':
-                    yield (t)
-            else:
-                yield ''
+            if t.token_type == 'alpha' or t.token_type == 'digit':
+                yield (t)

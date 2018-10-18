@@ -1,7 +1,7 @@
 """
 Stemmer contains a set of functions producing presustems for morphological analysis.
 """
- 
+
 # The class Stemmer contains two arguments for functions:
 # length is the number of symbols a token should contain
 # in order to get its pseudoflexions. It's also responsible
@@ -14,8 +14,9 @@ class Stemmer(object):
 
         # Make a list of flexion from the file.
         with open(self.file, 'r', encoding = 'UTF-8') as f:
-            flexions = f.read().split(' ')
-            flexions.pop(0)
+
+            # Without UFEF. 
+            flexions = f.read()[1:].split(' ')
 
         self.length = max(len(flex) for flex in flexions)
         self.flexions = set(flexions)
@@ -31,7 +32,7 @@ class Stemmer(object):
 
         # Check, if that the input is str-instance. 
         if not isinstance(string, str):
-                raise TypeError('This is not a string.')
+            raise TypeError('This is not a string.')
 
         # Check, if it's not empty.
         if string is '':
@@ -64,32 +65,11 @@ class Stemmer(object):
         # Get pseudostems.
         stems = self.pseudostem_generator(string)
 
-        # Yield the first one which equals the original token.
-        yield string
-            
-        while True:
-
-            # Take a stem.
-            try:
-                stem = next(stems)
-
-            # Check if there is any left.
-            except StopIteration:
-                raise
+        for stem in stems:
 
             # If a set of symbols in the token after the stem ended
             # equals a flexion from a list,..
             if string[len(stem):] in self.flexions:
 
-                # ... then yield it...
-                yield stem
-
-                # ... and do that till all possible pseudostems are obtained
-                # cutting flexions from a list from the original token. 
-                continue
-
-                # Then take the next one if there is any left. 
-                try:
-                    stem = next(stems)
-                except StopIteration:
-                    raise
+                # ... then yield it.
+                yield stem 

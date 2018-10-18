@@ -23,7 +23,7 @@ class Window(object):
         # and up to the first char index is sliced. 
         else:
             s1 = self.context[:self.pos_start]
-            print(self.context)
+            #print(self.context)
 
             self.left = 0
 
