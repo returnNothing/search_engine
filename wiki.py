@@ -4,9 +4,9 @@ to get all Russian nouns.
 """
 
 import mwclient
-from time import time
+#from time import time
 
-start_time = time()
+#start_time = time()
 
 # Сonnect to the site.
 site = mwclient.Site('ru.wiktionary.org')
@@ -60,7 +60,7 @@ with open('nouns.txt', 'w', encoding='utf_8') as f:
             else:
                 continue
         
-end_time = time()
-time_taken = end_time - start_time
-print("%s minutes" % (round((time_taken / 60), 2)))
+#end_time = time()
+#time_taken = end_time - start_time
+#print("%s minutes" % (round((time_taken / 60), 2)))
 # 7.03 minutes. 
