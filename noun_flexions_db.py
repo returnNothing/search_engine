@@ -85,3 +85,7 @@ with shelve.open('noun_flexions_db', 'c') as db:
 #keys.sort()
 #for key in keys:
 #    print(key, data[key])
+
+#end_time = time()
+#time_taken = end_time - start_time
+#print("%s minutes" % (round((time_taken / 60), 2)))
