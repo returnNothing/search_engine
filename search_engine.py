@@ -538,7 +538,7 @@ class Search_Engine(object):
     # Parameters 'limit' and 'offset' limit the number of documents in the output.
     def many_tokens_search_3(self, string, limit, offset):
         """
-        Use the method 'many_tokens_search_2' to find phrases and sentences.
+        Use the method 'many_tokens_search_3' to find phrases and sentences.
         Using 'limit' and 'offset' you can limit the number of documents you'd like to see.
         'offset' is the number of the first document you'd like to see.
         'limit' is a number of documents you'd like to see. 
