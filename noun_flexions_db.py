@@ -50,7 +50,7 @@ for category in root:
             if '={{{основа}}}' in line:
                 after_split = line.split('={{{основа}}}')
 
-                # Cut off '|'. 
+                # Cut off '|'.
                 val_name = after_split[0][1:]
 
                 # Form a pair of template and val_name. 
@@ -58,6 +58,19 @@ for category in root:
 
                 # Cut off extra brackets if there is any. 
                 flexion = re.sub('[^а-я]', '', (after_split[1]))
+
+            # In case there are more stems than one. 
+            elif '={{{основа' in line and \
+             line[line.index('а') + 1].isdigit() and \
+             line[line.index('а') + 4] == '}':
+
+                after_split = line.split('={{{основа')
+
+                val_name = after_split[0][1:]
+
+                pair = (template, val_name)
+
+                flexion = re.sub('[^а-я]', '', (after_split[1][4:]))
 
                 # In case there is variation of a flexion, store all of them. 
                 if 'основа' in flexion:
@@ -78,13 +91,7 @@ with shelve.open('noun_flexions_db', 'c') as db:
 
     # Add a dict in the database. 
     for key in draft_dict:
-        db[key] = draft_dict[key]
-
-#data=shelve.open('noun_flexions_db')
-#keys = list(data.keys())
-#keys.sort()
-#for key in keys:
-#    print(key, data[key])
+        db[key] = set(draft_dict[key])
 
 #end_time = time()
 #time_taken = end_time - start_time
